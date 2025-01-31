@@ -59,8 +59,8 @@ void Task_20ms(void * parameters)
 	xLastWakeTime = xTaskGetTickCount();
 	for(;;)
 	{
-
-		vTaskDelayUntil( &xLastWakeTime, pdMS_TO_TICKS(20));
+	    printf("20ms\n");
+	    vTaskDelayUntil( &xLastWakeTime, pdMS_TO_TICKS(20));
 	}
 }
 
@@ -80,7 +80,7 @@ void Task_200ms(void * parameters)
 
 	for(;;)
 	{
-
+	    printf("200ms\n");
 	    vTaskDelayUntil( &xLastWakeTime, pdMS_TO_TICKS(200));
 	}
 }
@@ -101,6 +101,7 @@ void Task_400ms(void * parameters)
 
 	for(;;)
 	{
+	    printf("400ms\n");
 	    vTaskDelayUntil( &xLastWakeTime, pdMS_TO_TICKS(400));
 	}
 }
@@ -120,6 +121,7 @@ void Task_500ms(void * parameters)
   xLastWakeTime = xTaskGetTickCount();
   for(;;)
     {
+      printf("500ms\n");
       vTaskDelayUntil( &xLastWakeTime, pdMS_TO_TICKS(500));
     }
 }
