@@ -46,18 +46,39 @@
 /* Hardware description related definitions. **********************************/
 /******************************************************************************/
 
+/* This is a manual patch to if you are using stm32 HAL library, this is updated auto
+ * DO NOT REMOVE
+ * */
 /* Ensure stdint is only used by the compiler, and not the assembler. */
 #if defined( __ICCARM__) || defined(__GNUC__) || defined(__CC_ARM)
 	#include <stdint.h>
 	extern uint32_t SystemCoreClock;
 #endif
 
+/* This is a manual patch to enable SEGGER or disable
+ * To enable, uncomment the define SEGGER_TRACE_ON, then make sure SEGGER folder from ThirdParty is not exclude from compilation
+ * To disable, comment out the define and make sure SEGGER folder is exclude from compilation
+ * This manual steps to enable or disable is due to ITM peripheral to print information. Currently, it is known how to both features enable (SEGGER and ITM)
+ *
+ * Note:
+ * 	to see if folder is exclude or not, in the project explorer:
+ * 	1. Right click
+ * 	2. Select C/C++ Build
+ * 	3. Click on setting
+ * 	4. Check or uncheck the "Exclude resource from build
+ * 	5. Click on apply and close
+ *
+ * DO NOT REMOVE
+ * */
+#define SEGGER_TRACE_ON
+
 /* In most cases, configCPU_CLOCK_HZ must be set to the frequency of the clock
  * that drives the peripheral used to generate the kernels periodic tick interrupt.
  * The default value is set to 20MHz and matches the QEMU demo settings.  Your
  * application will certainly need a different value so set this correctly.
  * This is very often, but not always, equal to the main system clock frequency. */
-#define configCPU_CLOCK_HZ    ( SystemCoreClock)
+#define configCPU_CLOCK_HZ    ( SystemCoreClock) /* This is a manual patch to if you are using stm32 HAL library, this is updated auto*/
+
 
 /* configSYSTICK_CLOCK_HZ is an optional parameter for ARM Cortex-M ports only.
  *
@@ -644,8 +665,10 @@
 #define INCLUDE_xTaskGetSchedulerState         1
 #define INCLUDE_xTaskGetCurrentTaskHandle      1
 #define INCLUDE_uxTaskGetStackHighWaterMark    0
-#define INCLUDE_xTaskGetIdleTaskHandle         0
-#define INCLUDE_eTaskGetState                  0
+#ifdef SEGGER_TRACE_ON
+#define INCLUDE_xTaskGetIdleTaskHandle         1 //SEGGER on
+#define INCLUDE_eTaskGetState                  1 //SEGGER on
+#endif
 #define INCLUDE_xEventGroupSetBitFromISR       1
 #define INCLUDE_xTimerPendFunctionCall         0
 #define INCLUDE_xTaskAbortDelay                0
@@ -655,5 +678,9 @@
 #define vPortSVCHandler SVC_Handler
 #define xPortPendSVHandler PendSV_Handler
 #define xPortSysTickHandler SysTick_Handler
+
+#ifdef SEGGER_TRACE_ON
+#include "SEGGER_SYSVIEW_FreeRTOS.h"
+#endif
 
 #endif /* FREERTOS_CONFIG_H */

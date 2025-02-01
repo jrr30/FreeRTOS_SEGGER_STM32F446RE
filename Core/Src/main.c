@@ -94,8 +94,8 @@ int main(void)
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
 
-//  SEGGER_UART_init(500000);
-//  SEGGER_SYSVIEW_Conf();
+  SEGGER_SYSVIEW_Conf();
+  SEGGER_SYSVIEW_Start();
   Task_Generation();
   vTaskStartScheduler();
   /* USER CODE END 2 */

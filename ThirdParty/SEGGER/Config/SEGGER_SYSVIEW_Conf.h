@@ -3,7 +3,7 @@
 *                        The Embedded Experts                        *
 **********************************************************************
 *                                                                    *
-*            (c) 1995 - 2019 SEGGER Microcontroller GmbH             *
+*            (c) 1995 - 2024 SEGGER Microcontroller GmbH             *
 *                                                                    *
 *       www.segger.com     Support: support@segger.com               *
 *                                                                    *
@@ -42,7 +42,7 @@
 *                                                                    *
 **********************************************************************
 *                                                                    *
-*       SystemView version: 3.20                                    *
+*       SystemView version: 3.58                                    *
 *                                                                    *
 **********************************************************************
 -------------------------- END-OF-HEADER -----------------------------
@@ -78,12 +78,6 @@ Additional information:
 * TODO: Add your defines here.                                       *
 **********************************************************************
 */
-#define SEGGER_UART_REC 1
-
-#if (SEGGER_UART_REC == 1)
-     extern void HIF_UART_EnableTXEInterrupt (void);
-     #define SEGGER_SYSVIEW_ON_EVENT_RECORDED(x) HIF_UART_EnableTXEInterrupt()
-#endif
 
 
 #endif  // SEGGER_SYSVIEW_CONF_H
